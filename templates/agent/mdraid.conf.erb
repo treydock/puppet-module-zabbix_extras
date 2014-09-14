@@ -1,0 +1,40 @@
+# UserParameter checks for mdraid
+
+# mdraid.degraded
+#
+# Arguments:
+#   1 - MD device name.  Example: md0
+#
+# Returns:
+#   A value of 0 if healthy and 1 for degraded.
+#
+UserParameter=mdraid.state[*],cat /sys/block/$1/md/degraded
+
+# mdraid.discovery
+#
+# Arguments:
+#   None
+#
+# Returns:
+#   Returns JSON used by Zabbix to do discovery of MD RAID devices
+#
+#
+# Example:
+#
+#
+#{
+#  "data": [
+#    {
+#      "{#STATUS}": "active",
+#      "{#LEVEL}": "raid1",
+#      "{#MD_DEVICE}": "md0"
+#    },
+#    {
+#      "{#STATUS}": "active",
+#      "{#LEVEL}": "raid1",
+#      "{#MD_DEVICE}": "md1"
+#    }
+#  ]
+#}
+# 
+UserParameter=mdraid.discovery,<%= scope.lookupvar('zabbix_extras::agent::mdraid::mdraid_discovery_path') %>

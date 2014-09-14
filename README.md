@@ -28,6 +28,7 @@ TODO
 
 * `zabbix::agent::fhgfs`: Custom checks for FhGFS
 * `zabbix::agent::filesystem`: Custom checks for filesystems
+* `zabbix::agent::mdraid`: Custom checks for filesystems
 
 #### Private classes
 

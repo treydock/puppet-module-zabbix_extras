@@ -1,0 +1,21 @@
+# UserParameter checks for filesystems
+
+# filesystem.mounted
+# Arguments:
+#   1 - mountpoint path
+#
+# Returns:
+#   1 - mounted filesystem
+#   0 - not mounted filesystem
+#
+UserParameter=filesystem.mounted[*], /bin/mountpoint -q $1 && echo 1 || echo 0
+
+# filesystem.checkro
+# Arguments:
+#   1 - mountpoint path
+#
+# Returns:
+#   1 - read-only filesystem
+#   0 - not read-only filesystem
+#
+UserParameter=filesystem.checkro[*],<%= scope.lookupvar('zabbix_extras::agent::filesystem::checkro_path') %> "$1"

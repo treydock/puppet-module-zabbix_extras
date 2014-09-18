@@ -1,0 +1,30 @@
+# UserParameter checks for ZFS
+
+# zpool.health
+#
+# Arguments:
+# 1 - zpool name
+#
+# Returns:
+# ONLINE - The zpool is healthy
+# * - The zpool has issues
+#
+UserParameter=zpool.health[*],sudo /sbin/zpool list -H -o health $1
+
+# zfs.arcstat
+#
+# Arguments:
+# 1 - stat name
+#
+# Returns:
+#   Specified stat value from /proc/spl/kstat/zfs/arcstats
+#
+UserParameter=zfs.arcstat[*],grep "^$1 " /proc/spl/kstat/zfs/arcstats | awk -F" " '{ print $$3 }'
+
+# zfs.property
+#
+# Arguments:
+# 1 - zfs filesystem name
+# 2 - property name
+#
+UserParameter=zfs.property[*],sudo /sbin/zfs get -H -p $2 -o value $1

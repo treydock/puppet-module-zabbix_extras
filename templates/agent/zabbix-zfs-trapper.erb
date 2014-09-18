@@ -1,0 +1,4 @@
+# File managed by Puppet do NOT edit!
+#
+# Zabbix ZFS trapper
+<%= @trapper_minute %> <%= @trapper_hour %> * * * root <%= @zfs_trapper_path %> -z "<%= @trapper_zpools.join(" ") %>" -f "<%= @trapper_filesystems.join(" ") %>" &>/dev/null

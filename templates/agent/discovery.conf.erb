@@ -1,0 +1,26 @@
+# UserParameter checks for discovery
+
+# block_device.discovery
+#
+# Arguments:
+#   None
+#
+# Returns:
+#   Returns JSON used by Zabbix to do discovery of block devices devices
+#
+#
+# Example:
+#
+#
+#{
+#  "data": [
+#    {
+#      "{#BLOCK_DEVICE}": "/dev/sda"
+#    },
+#    {
+#      "{#BLOCK_DEVICE}": "/dev/sdb"
+#    }
+#  ]
+#}
+# 
+UserParameter=block_device.discovery,<%= scope.lookupvar('zabbix_extras::agent::discovery::block_device_discovery_path') %>

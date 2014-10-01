@@ -13,7 +13,7 @@ describe 'zabbix_extras::agent::fhgfs' do
   it "should create UserParameter for fhgfs" do
     content = catalogue.resource('zabbix::agent::userparameter', 'fhgfs').send(:parameters)[:content]
     content.split("\n").reject { |c| c =~ /(^#|^$)/ }.should == [
-      'UserParameter=fhgfs.client.status,test -f /proc/fs/fhgfs/*/.status && echo "1" || echo "0"',
+      'UserParameter=fhgfs.client.status,ls /proc/fs/fhgfs/*/.status &>/dev/null && echo "1" || echo "0"',
       'UserParameter=fhgfs.list_unreachable,fhgfs-check-servers | grep UNREACHABLE | sed -r -e \'s/^(.*)\s+\[.*\]:\s+UNREACHABLE/\1/g\' | paste -sd ","',
       'UserParameter=fhgfs.management.reachable[*],fhgfs-ctl --listnodes --reachable --nodetype=management | grep -A1 \'^$1 \[\' | grep -c "Reachable: <yes>"',
       'UserParameter=fhgfs.metadata.reachable[*],fhgfs-ctl --listnodes --reachable --nodetype=metadata | grep -A1 \'^$1 \[\' | grep -c "Reachable: <yes>"',

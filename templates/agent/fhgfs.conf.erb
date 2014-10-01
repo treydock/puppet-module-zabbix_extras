@@ -6,7 +6,7 @@
 #   1 - If fhgfs client is loaded
 #   0 - If fhgfs client is not loaded
 #
-UserParameter=fhgfs.client.status,test -f /proc/fs/fhgfs/*/.status && echo "1" || echo "0"
+UserParameter=fhgfs.client.status,ls /proc/fs/fhgfs/*/.status &>/dev/null && echo "1" || echo "0"
 
 # fhgfs.list_unreachable
 #

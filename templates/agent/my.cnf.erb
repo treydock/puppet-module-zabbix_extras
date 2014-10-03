@@ -1,0 +1,6 @@
+[client]
+user=<%= @mysql_monitor_username %>
+host=<%= @mysql_monitor_hostname %>
+<% unless @mysql_monitor_password == 'UNSET' -%>
+password='<%= @mysql_monitor_password %>'
+<% end -%>

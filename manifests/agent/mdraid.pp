@@ -28,13 +28,13 @@ class zabbix_extras::agent::mdraid (
   }
 
   file { 'mdraid_discovery.rb':
-    ensure  => $ensure,
-    path    => $mdraid_discovery_path,
-    source  => 'puppet:///modules/zabbix_extras/agent/mdraid/mdraid_discovery.rb',
-    owner   => 'zabbix',
-    group   => 'zabbix',
-    mode    => '0755',
-    before  => Zabbix::Agent::Userparameter['mdraid'],
+    ensure => $ensure,
+    path   => $mdraid_discovery_path,
+    source => 'puppet:///modules/zabbix_extras/agent/mdraid/mdraid_discovery.rb',
+    owner  => 'zabbix',
+    group  => 'zabbix',
+    mode   => '0755',
+    before => Zabbix::Agent::Userparameter['mdraid'],
   }
 
 }

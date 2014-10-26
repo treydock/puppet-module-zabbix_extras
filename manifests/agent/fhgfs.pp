@@ -29,23 +29,23 @@ class zabbix_extras::agent::fhgfs (
   }
 
   file { 'fhgfs_metadata_iostat.sh':
-    ensure  => $ensure,
-    path    => $metadata_iostat_path,
-    source  => 'puppet:///modules/zabbix_extras/agent/fhgfs/metadata_iostat.sh',
-    owner   => 'zabbix',
-    group   => 'zabbix',
-    mode    => '0755',
-    before  => Zabbix::Agent::Userparameter['fhgfs'],
+    ensure => $ensure,
+    path   => $metadata_iostat_path,
+    source => 'puppet:///modules/zabbix_extras/agent/fhgfs/metadata_iostat.sh',
+    owner  => 'zabbix',
+    group  => 'zabbix',
+    mode   => '0755',
+    before => Zabbix::Agent::Userparameter['fhgfs'],
   }
 
   file { 'fhgfs_storage_iostat.sh':
-    ensure  => $ensure,
-    path    => $storage_iostat_path,
-    source  => 'puppet:///modules/zabbix_extras/agent/fhgfs/storage_iostat.sh',
-    owner   => 'zabbix',
-    group   => 'zabbix',
-    mode    => '0755',
-    before  => Zabbix::Agent::Userparameter['fhgfs'],
+    ensure => $ensure,
+    path   => $storage_iostat_path,
+    source => 'puppet:///modules/zabbix_extras/agent/fhgfs/storage_iostat.sh',
+    owner  => 'zabbix',
+    group  => 'zabbix',
+    mode   => '0755',
+    before => Zabbix::Agent::Userparameter['fhgfs'],
   }
 
 }

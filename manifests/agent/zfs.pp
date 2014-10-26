@@ -44,13 +44,13 @@ class zabbix_extras::agent::zfs (
   }
 
   file { 'zfs_trapper.sh':
-    ensure  => $ensure,
-    path    => $zfs_trapper_path,
-    source  => 'puppet:///modules/zabbix_extras/agent/zfs/zfs_trapper.sh',
-    owner   => 'zabbix',
-    group   => 'zabbix',
-    mode    => '0755',
-    before  => Zabbix::Agent::Userparameter['zfs'],
+    ensure => $ensure,
+    path   => $zfs_trapper_path,
+    source => 'puppet:///modules/zabbix_extras/agent/zfs/zfs_trapper.sh',
+    owner  => 'zabbix',
+    group  => 'zabbix',
+    mode   => '0755',
+    before => Zabbix::Agent::Userparameter['zfs'],
   }
 
   if $manage_trapper {

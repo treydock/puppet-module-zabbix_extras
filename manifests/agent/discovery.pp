@@ -14,13 +14,13 @@ class zabbix_extras::agent::discovery (
   }
 
   file { 'block_device_discovery.rb':
-    ensure  => $ensure,
-    path    => $block_device_discovery_path,
-    source  => 'puppet:///modules/zabbix_extras/agent/discovery/block_device_discovery.rb',
-    owner   => 'zabbix',
-    group   => 'zabbix',
-    mode    => '0755',
-    before  => Zabbix::Agent::Userparameter['discovery'],
+    ensure => $ensure,
+    path   => $block_device_discovery_path,
+    source => 'puppet:///modules/zabbix_extras/agent/discovery/block_device_discovery.rb',
+    owner  => 'zabbix',
+    group  => 'zabbix',
+    mode   => '0755',
+    before => Zabbix::Agent::Userparameter['discovery'],
   }
 
 }

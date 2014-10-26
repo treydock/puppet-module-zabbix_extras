@@ -16,13 +16,13 @@ class zabbix_extras::agent::filesystem (
   }
 
   file { 'checkro.sh':
-    ensure  => $ensure,
-    path    => $checkro_path,
-    source  => 'puppet:///modules/zabbix_extras/agent/filesystem/checkro.sh',
-    owner   => 'zabbix',
-    group   => 'zabbix',
-    mode    => '0755',
-    before  => Zabbix::Agent::Userparameter['filesystem'],
+    ensure => $ensure,
+    path   => $checkro_path,
+    source => 'puppet:///modules/zabbix_extras/agent/filesystem/checkro.sh',
+    owner  => 'zabbix',
+    group  => 'zabbix',
+    mode   => '0755',
+    before => Zabbix::Agent::Userparameter['filesystem'],
   }
 
 }

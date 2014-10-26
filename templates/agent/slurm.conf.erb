@@ -4,8 +4,9 @@
 #
 # Arguments:
 #  1 - node name , optional , defaults to host shortname
+#  2 - The field from sinfo to query , optional , defaults to %T
 #
 # Returns:
 #  SLURM node state
 #
-UserParameter=slurmd.state[*],NODE=$1 ; sinfo -n ${NODE:-$(hostname -s)} --noheader -o "%T"
+UserParameter=slurm.sinfo[*],NODE=$1 ; FIELD=$2 ; sinfo -n ${NODE:-$(hostname -s)} --noheader -o "${FIELD:-%T}"

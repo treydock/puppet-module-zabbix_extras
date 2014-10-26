@@ -12,7 +12,7 @@ describe 'zabbix_extras::agent::slurm' do
 
   it "should create UserParameter for slurm" do
     verify_user_parameter_contents(catalogue, 'slurm', [
-      'UserParameter=slurmd.state[*],NODE=$1 ; sinfo -n ${NODE:-$(hostname -s)} --noheader -o "%T"',
+      'UserParameter=slurm.sinfo[*],NODE=$1 ; FIELD=$2 ; sinfo -n ${NODE:-$(hostname -s)} --noheader -o "${FIELD:-%T}"',
     ])
   end
 

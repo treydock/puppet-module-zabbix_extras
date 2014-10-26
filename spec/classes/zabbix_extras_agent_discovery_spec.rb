@@ -1,9 +1,12 @@
 require 'spec_helper'
 
 describe 'zabbix_extras::agent::discovery' do
-  include_context :defaults
-
-  let(:facts){ default_facts }
+  let :facts do
+    {
+      :osfamily                   => 'RedHat',
+      :operatingsystemmajrelease  => '6',
+    }
+  end
 
   it { should create_class('zabbix_extras::agent::discovery') }
   it { should contain_class('zabbix::agent') }

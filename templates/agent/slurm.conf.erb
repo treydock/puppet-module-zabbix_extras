@@ -1,0 +1,11 @@
+# UserParameter checks for SLURM
+
+# slurmd.state
+#
+# Arguments:
+#  1 - node name , optional , defaults to host shortname
+#
+# Returns:
+#  SLURM node state
+#
+UserParameter=slurmd.state[*],NODE=$1 ; sinfo -n ${NODE:-$(hostname -s)} --noheader -o "%T"

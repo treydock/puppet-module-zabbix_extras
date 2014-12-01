@@ -29,6 +29,7 @@ describe 'zabbix_extras::agent::mysql' do
     content = catalogue.resource('zabbix::agent::userparameter', 'mysql').send(:parameters)[:content]
     content.split("\n").reject { |c| c =~ /(^#|^$)/ }.should == [
       'UserParameter=mysql.status[*],echo "show global status where Variable_name=\'$1\';" | HOME=/var/lib/zabbix mysql -N | awk \'{print $$2}\'',
+      'UserParameter=mysql.slave.status[*],echo "SHOW SLAVE STATUS \G" | HOME=/var/lib/zabbix mysql | grep $1 | awk \'{print $$2}\'',
       'UserParameter=mysql.size[*],echo "select sum($(case "$3" in both|"") echo "data_length+index_length";; data|index) echo "$3_length";; free) echo "data_free";; esac)) from information_schema.tables$([[ "$1" = "all" || ! "$1" ]] || echo " where table_schema=\'$1\'")$([[ "$2" = "all" || ! "$2" ]] || echo "and table_name=\'$2\'");" | HOME=/var/lib/zabbix mysql -N',
       'UserParameter=mysql.ping,HOME=/var/lib/zabbix mysqladmin ping | grep -c alive',
       'UserParameter=mysql.version,mysql -V',

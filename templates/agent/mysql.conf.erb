@@ -4,6 +4,10 @@
 # Key syntax is mysql.status[variable].
 UserParameter=mysql.status[*],echo "show global status where Variable_name='$1';" | HOME=<%= @zabbix_agent_home_real %> mysql -N | awk '{print $$2}'
 
+# Get slave status.
+# Key syntax is mysql.slave.status[variable].
+UserParameter=mysql.slave.status[*],echo "SHOW SLAVE STATUS \G" | HOME=<%= @zabbix_agent_home_real %> mysql | grep $1 | awk '{print $$2}'
+
 # Flexible parameter to determine database or table size. On the frontend side, use keys like mysql.size[zabbix,history,data].
 # Key syntax is mysql.size[<database>,<table>,<type>].
 # Database may be a database name or "all". Default is "all".

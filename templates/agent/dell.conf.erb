@@ -1,0 +1,47 @@
+# omreport.chassis.health[*]
+#   Checks the chassis health
+#
+# Arguments:
+#   The chassis report metric to collect
+#
+# Returns:
+#   Either "Ok", "Non-Critical" or "Critical"
+#   Type: String
+#
+UserParameter=omreport.chassis.health[*],/opt/dell/srvadmin/bin/omreport chassis -fmt ssv | sed -r 's/^([-a-zA-Z]+);($1)$/\1/;tx;d;:x'
+
+# omreport.esmlog.health
+#   Checks the esmlog Health value
+#
+# Arguments:
+#   None
+#
+# Returns:
+#   Either "Ok", "Non-Critical" or "Critical"
+#   Type: String
+#
+UserParameter=omreport.esmlog.health,/opt/dell/srvadmin/bin/omreport system esmlog -fmt ssv | /bin/egrep "^Health" | /bin/sed -r 's/^Health;([-a-zA-Z]+)$/\1/'
+
+# omreport.storage.controller[*]
+#   Checks a storage controller value
+#   Example omreport.storage.controller[Status] - Ok
+#
+# Arguments:
+#   The controller report metric to collect
+#
+# Returns:
+#   Type: String
+#
+UserParameter=omreport.storage.controller[*],/opt/dell/srvadmin/bin/omreport storage controller | /bin/egrep "^$1" | /bin/sed -r 's/^(.*):\s(.*)$/\2/g'
+
+# omreport.storage.pdisk[*]
+#   Checks a physical disk value
+#   Example omreport.storage.pdisk[Status] - Ok
+#
+# Arguments:
+#   The disk report metric to collect
+#
+# Returns:
+#   Type: String
+#
+UserParameter=omreport.storage.pdisk[*],/opt/dell/srvadmin/bin/omreport storage pdisk controller=0 | /bin/egrep "^$1" | /bin/sed -r 's/^(.*):\s(.*)$/\2/g'

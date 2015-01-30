@@ -8,7 +8,7 @@
 #   Either "Ok", "Non-Critical" or "Critical"
 #   Type: String
 #
-UserParameter=omreport.chassis.health[*],/opt/dell/srvadmin/bin/omreport chassis -fmt ssv | sed -r 's/^([-a-zA-Z]+);($1)$/\1/;tx;d;:x'
+UserParameter=omreport.chassis.health[*],/opt/dell/srvadmin/bin/omreport chassis -fmt ssv | grep ";$1" | awk -F';' '{ print $$1 }'
 
 # omreport.esmlog.health
 #   Checks the esmlog Health value
@@ -20,28 +20,30 @@ UserParameter=omreport.chassis.health[*],/opt/dell/srvadmin/bin/omreport chassis
 #   Either "Ok", "Non-Critical" or "Critical"
 #   Type: String
 #
-UserParameter=omreport.esmlog.health,/opt/dell/srvadmin/bin/omreport system esmlog -fmt ssv | /bin/egrep "^Health" | /bin/sed -r 's/^Health;([-a-zA-Z]+)$/\1/'
+UserParameter=omreport.esmlog.health,/opt/dell/srvadmin/bin/omreport system esmlog -fmt ssv | /bin/egrep "^Health" | awk -F';' '{ print $$2 }'
 
-# omreport.storage.controller[*]
-#   Checks a storage controller value
-#   Example omreport.storage.controller[Status] - Ok
+# omreport.storage.controller
+#   Checks the storage controllers status
+#   Example omreport.storage.controller.status - 0
 #
 # Arguments:
-#   The controller report metric to collect
+#   None
 #
 # Returns:
-#   Type: String
+#   The count of statuses that are not "Ok"
+#   Type: Integer
 #
-UserParameter=omreport.storage.controller[*],/opt/dell/srvadmin/bin/omreport storage controller | /bin/egrep "^$1" | /bin/sed -r 's/^(.*):\s(.*)$/\2/g'
+UserParameter=omreport.storage.controller.status,/opt/dell/srvadmin/bin/omreport storage controller | /bin/egrep "^Status" | awk '{ print $$3 }' | grep -cv "Ok"
 
-# omreport.storage.pdisk[*]
-#   Checks a physical disk value
+# omreport.storage.pdisk.status
+#   Checks the physical disk statuses
 #   Example omreport.storage.pdisk[Status] - Ok
 #
 # Arguments:
-#   The disk report metric to collect
+#   The controller to check
 #
 # Returns:
-#   Type: String
+#   The count of statuses that are not "Ok"
+#   Type: Integer
 #
-UserParameter=omreport.storage.pdisk[*],/opt/dell/srvadmin/bin/omreport storage pdisk controller=0 | /bin/egrep "^$1" | /bin/sed -r 's/^(.*):\s(.*)$/\2/g'
+UserParameter=omreport.storage.pdisk.status,/opt/dell/srvadmin/bin/omreport storage pdisk controller=${1-0} | /bin/egrep "^Status" | awk '{ print $$3 }' | grep -cv "Ok"

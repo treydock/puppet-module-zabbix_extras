@@ -17,10 +17,10 @@ describe 'zabbix_extras::agent::dell' do
   it "should create UserParameter for dell" do
     content = catalogue.resource('zabbix::agent::userparameter', 'dell').send(:parameters)[:content]
     content.split("\n").reject { |c| c =~ /(^#|^$)/ }.should == [
-      "UserParameter=omreport.chassis.health[*],/opt/dell/srvadmin/bin/omreport chassis -fmt ssv | sed -r 's/^([-a-zA-Z]+);($1)$/\\1/;tx;d;:x'",
-      "UserParameter=omreport.esmlog.health,/opt/dell/srvadmin/bin/omreport system esmlog -fmt ssv | /bin/egrep \"^Health\" | /bin/sed -r 's/^Health;([-a-zA-Z]+)$/\\1/'",
-      "UserParameter=omreport.storage.controller[*],/opt/dell/srvadmin/bin/omreport storage controller | /bin/egrep \"^$1\" | /bin/sed -r 's/^(.*):\\s(.*)$/\\2/g'",
-      "UserParameter=omreport.storage.pdisk[*],/opt/dell/srvadmin/bin/omreport storage pdisk controller=0 | /bin/egrep \"^$1\" | /bin/sed -r 's/^(.*):\\s(.*)$/\\2/g'",
+      "UserParameter=omreport.chassis.health[*],/opt/dell/srvadmin/bin/omreport chassis -fmt ssv | grep \";$1\" | awk -F';' '{ print $$1 }'",
+      "UserParameter=omreport.esmlog.health,/opt/dell/srvadmin/bin/omreport system esmlog -fmt ssv | /bin/egrep \"^Health\" | awk -F';' '{ print $$2 }'",
+      "UserParameter=omreport.storage.controller.status,/opt/dell/srvadmin/bin/omreport storage controller | /bin/egrep \"^Status\" | awk '{ print $$3 }' | grep -cv \"Ok\"",
+      "UserParameter=omreport.storage.pdisk.status,/opt/dell/srvadmin/bin/omreport storage pdisk controller=${1-0} | /bin/egrep \"^Status\" | awk '{ print $$3 }' | grep -cv \"Ok\"",
     ]
   end
 

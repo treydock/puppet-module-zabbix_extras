@@ -20,7 +20,7 @@ UserParameter=omreport.chassis.health[*],/opt/dell/srvadmin/bin/omreport chassis
 #   Either "Ok", "Non-Critical" or "Critical"
 #   Type: String
 #
-UserParameter=omreport.esmlog.health,/opt/dell/srvadmin/bin/omreport system esmlog -fmt ssv | /bin/egrep "^Health" | awk -F';' '{ print $$2 }'
+UserParameter=omreport.esmlog.health,/opt/dell/srvadmin/bin/omreport system esmlog -fmt ssv | /bin/egrep "^Health" | awk -F';' '{ print $2 }'
 
 # omreport.storage.controller
 #   Checks the storage controllers status
@@ -33,7 +33,7 @@ UserParameter=omreport.esmlog.health,/opt/dell/srvadmin/bin/omreport system esml
 #   The count of statuses that are not "Ok"
 #   Type: Integer
 #
-UserParameter=omreport.storage.controller.status,/opt/dell/srvadmin/bin/omreport storage controller | /bin/egrep "^Status" | awk '{ print $$3 }' | grep -cv "Ok"
+UserParameter=omreport.storage.controller.status,/opt/dell/srvadmin/bin/omreport storage controller | /bin/egrep "^Status" | awk '{ print $3 }' | grep -cv "Ok"
 
 # omreport.storage.pdisk.status
 #   Checks the physical disk statuses

@@ -46,4 +46,4 @@ UserParameter=omreport.storage.controller.status,/opt/dell/srvadmin/bin/omreport
 #   The count of statuses that are not "Ok"
 #   Type: Integer
 #
-UserParameter=omreport.storage.pdisk.status,/opt/dell/srvadmin/bin/omreport storage pdisk controller=${1-0} | /bin/egrep "^Status" | awk '{ print $$3 }' | grep -cv "Ok"
+UserParameter=omreport.storage.pdisk.status[*],/opt/dell/srvadmin/bin/omreport storage pdisk controller=${1-0} | /bin/egrep "^Status" | awk '{ print $$3 }' | grep -cv "Ok"

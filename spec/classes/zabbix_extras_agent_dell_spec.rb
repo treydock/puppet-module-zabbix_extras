@@ -20,7 +20,7 @@ describe 'zabbix_extras::agent::dell' do
       "UserParameter=omreport.chassis.health[*],/opt/dell/srvadmin/bin/omreport chassis -fmt ssv | grep \";$1\" | awk -F';' '{ print $$1 }'",
       "UserParameter=omreport.esmlog.health,/opt/dell/srvadmin/bin/omreport system esmlog -fmt ssv | /bin/egrep \"^Health\" | awk -F';' '{ print $$2 }'",
       "UserParameter=omreport.storage.controller.status,/opt/dell/srvadmin/bin/omreport storage controller | /bin/egrep \"^Status\" | awk '{ print $$3 }' | grep -cv \"Ok\"",
-      "UserParameter=omreport.storage.pdisk.status,/opt/dell/srvadmin/bin/omreport storage pdisk controller=${1-0} | /bin/egrep \"^Status\" | awk '{ print $$3 }' | grep -cv \"Ok\"",
+      "UserParameter=omreport.storage.pdisk.status[*],/opt/dell/srvadmin/bin/omreport storage pdisk controller=${1-0} | /bin/egrep \"^Status\" | awk '{ print $$3 }' | grep -cv \"Ok\"",
     ]
   end
 

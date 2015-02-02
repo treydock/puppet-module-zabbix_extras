@@ -1,0 +1,34 @@
+# edac.ecc.uncorrected
+#   Returns the number of uncorrected ECC errors from edac-utils
+#
+# Arguments:
+#   None
+#
+# Returns:
+#   Number of uncorrected ECC errors
+#   Type: Integer
+#
+UserParameter=edac.ecc.uncorrected,/usr/bin/edac-util --report=ue | /bin/sed -r -e 's/^UE: ([0-9]+)/\1/g'
+
+# edac.ecc.corrected
+#   Returns the number of corrected ECC errors from edac-utils
+#
+# Arguments:
+#   None
+#
+# Returns:
+#   Number of corrected ECC errors
+#   Type: Integer
+#
+UserParameter=edac.ecc.corrected,/usr/bin/edac-util --report=ce | /bin/sed -r -e 's/^CE: ([0-9]+)/\1/g'
+
+# edac.status
+#   Returns exit code of edac-ctl --status
+#
+# Arguments:
+#   None
+#
+# Returns:
+#   Exit code of edac-ctl --status
+#   Type: Integer
+UserParameter=edac.status,(/usr/sbin/edac-ctl --status --quiet ; echo $?)

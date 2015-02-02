@@ -5,10 +5,10 @@
 #   The chassis report metric to collect
 #
 # Returns:
-#   Either "Ok", "Non-Critical" or "Critical"
-#   Type: String
+#   Number of statuses that are not "Ok"
+#   Type: Integer
 #
-UserParameter=omreport.chassis.health[*],/opt/dell/srvadmin/bin/omreport chassis -fmt ssv | grep ";$1" | awk -F';' '{ print $$1 }'
+UserParameter=omreport.chassis.health[*],/opt/dell/srvadmin/bin/omreport chassis -fmt ssv | grep ";$1" | awk -F';' '{ print $$1 }' | grep -cv "Ok"
 
 # omreport.esmlog.health
 #   Checks the esmlog Health value
@@ -17,10 +17,10 @@ UserParameter=omreport.chassis.health[*],/opt/dell/srvadmin/bin/omreport chassis
 #   None
 #
 # Returns:
-#   Either "Ok", "Non-Critical" or "Critical"
-#   Type: String
+#   Number of statuses that are not "Ok"
+#   Type: Integer
 #
-UserParameter=omreport.esmlog.health,/opt/dell/srvadmin/bin/omreport system esmlog -fmt ssv | /bin/egrep "^Health" | awk -F';' '{ print $2 }'
+UserParameter=omreport.esmlog.health,/opt/dell/srvadmin/bin/omreport system esmlog -fmt ssv | /bin/egrep "^Health" | awk -F';' '{ print $2 }' | grep -cv "Ok"
 
 # omreport.storage.controller
 #   Checks the storage controllers status

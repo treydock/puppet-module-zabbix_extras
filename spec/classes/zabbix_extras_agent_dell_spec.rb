@@ -17,8 +17,8 @@ describe 'zabbix_extras::agent::dell' do
   it "should create UserParameter for dell" do
     content = catalogue.resource('zabbix::agent::userparameter', 'dell').send(:parameters)[:content]
     content.split("\n").reject { |c| c =~ /(^#|^$)/ }.should == [
-      "UserParameter=omreport.chassis.health[*],/opt/dell/srvadmin/bin/omreport chassis -fmt ssv | grep \";$1\" | awk -F';' '{ print $$1 }'",
-      "UserParameter=omreport.esmlog.health,/opt/dell/srvadmin/bin/omreport system esmlog -fmt ssv | /bin/egrep \"^Health\" | awk -F';' '{ print $2 }'",
+      "UserParameter=omreport.chassis.health[*],/opt/dell/srvadmin/bin/omreport chassis -fmt ssv | grep \";$1\" | awk -F';' '{ print $$1 }' | grep -cv \"Ok\"",
+      "UserParameter=omreport.esmlog.health,/opt/dell/srvadmin/bin/omreport system esmlog -fmt ssv | /bin/egrep \"^Health\" | awk -F';' '{ print $2 }' | grep -cv \"Ok\"",
       "UserParameter=omreport.storage.controller.status,/opt/dell/srvadmin/bin/omreport storage controller | /bin/egrep \"^Status\" | awk '{ print $3 }' | grep -cv \"Ok\"",
       "UserParameter=omreport.storage.pdisk.status[*],/opt/dell/srvadmin/bin/omreport storage pdisk controller=${1-0} | /bin/egrep \"^Status\" | awk '{ print $$3 }' | grep -cv \"Ok\"",
     ]

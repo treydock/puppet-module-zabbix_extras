@@ -1,0 +1,13 @@
+# UserParameter checks for processes
+
+# pgrep.num[*]
+#   Count running processes using pgrep
+#
+# Arguments:
+#   1 - process name pattern
+#
+# Returns:
+#   Count of processes matching pattern
+#   Type: Integer
+#
+UserParameter=pgrep.num[*],/usr/bin/pgrep "$1" | wc -l

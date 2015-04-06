@@ -1,0 +1,11 @@
+# UserParameter checks for X509 certificates
+
+# x509.expiration
+#
+# Arguments:
+#  1 - path to X509 certificate
+#
+# Returns:
+#  Days till expiration
+#
+UserParameter=x509.expiration[*],<%= scope.lookupvar('zabbix_extras::agent::x509::expiration_script_path') %> $1

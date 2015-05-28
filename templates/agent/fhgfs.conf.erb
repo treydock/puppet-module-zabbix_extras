@@ -8,6 +8,17 @@
 #
 UserParameter=fhgfs.client.status,ls /proc/fs/fhgfs/*/.status &>/dev/null && echo "1" || echo "0"
 
+# fhgfs.config.value
+#
+# Arguments:
+#   1 - Config name
+#   2 - Config path
+#
+# Returns:
+#   Configuration value
+#
+UserParameter=fhgfs.config.value[*],awk '/^$1/{ print $$NF }' $2
+
 # fhgfs.list_unreachable
 #
 # Arguments:

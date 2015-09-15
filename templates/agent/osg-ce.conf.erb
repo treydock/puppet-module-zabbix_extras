@@ -1,0 +1,11 @@
+# UserParameter checks for OSG CE
+
+# osg.ce.schedd.ad
+#
+# Arguments:
+#  1 - Schedd ClassAd to return
+#
+# Returns:
+#  ClassAd attribute value
+#
+UserParameter=osg.ce.schedd.ad[*],<%= scope.lookupvar('zabbix_extras::agent::osg_ce::schedd_ad_script_path') %> --ad $1

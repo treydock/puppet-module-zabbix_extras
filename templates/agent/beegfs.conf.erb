@@ -39,7 +39,7 @@ UserParameter=beegfs.list_unreachable,beegfs-check-servers | grep UNREACHABLE | 
 #   1 - reachable
 #   0 - unreachable
 #
-UserParameter=beegfs.<%= type %>.reachable[*],beegfs-ctl --listnodes --reachable --nodetype=<%= type %> | grep -A1 '^$1 \[' | grep -c "Reachable: <yes>"
+UserParameter=beegfs.<%= type %>.reachable[*],beegfs-ctl --listnodes --reachable --nodetype=<%= type %> | grep -A1 '\[ID: $1\]' | grep -c "Reachable: <yes>"
 
 <% end -%>
 
@@ -52,7 +52,7 @@ UserParameter=beegfs.<%= type %>.reachable[*],beegfs-ctl --listnodes --reachable
 # Returns:
 #   pool status string of "normal", "low", or "emergency"
 #
-UserParameter=beegfs.pool.status[*],beegfs-ctl --listpools --nodetype=$2 | sed -r -n -e 's|^\s+$1+\s+\[(.*)\]$|\1|p'
+UserParameter=beegfs.pool.status[*],beegfs-ctl --listtargets --pools --nodetype=$2 | egrep '^\s+$1' | awk '{ print $$2 }'
 
 # beegfs.client.num
 #

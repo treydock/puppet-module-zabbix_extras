@@ -17,7 +17,7 @@ describe 'zabbix_extras::agent::beegfs' do
     content = catalogue.resource('zabbix::agent::userparameter', 'beegfs').send(:parameters)[:content]
     content.split("\n").reject { |c| c =~ /(^#|^$)/ }.should == [
       'UserParameter=beegfs.client.status,ls /proc/fs/beegfs/*/.status &>/dev/null && echo "1" || echo "0"',
-      'UserParameter=beegfs.config.value[*],awk \'/^$1/{ print $$NF }\' $2',
+      'UserParameter=beegfs.config.value[*],if [[ -n "$1" ]]; then name="$1" ; else name="tuneNumWorkers" ; fi ; if [[ -n "$2" ]] ; then path="$2" ; else path="/etc/beegfs/beegfs-client.conf" ; fi ; awk "/^$name/{ print \$NF }" $path',
       'UserParameter=beegfs.list_unreachable,beegfs-check-servers | grep UNREACHABLE | sed -r -e \'s/^(.*)\s+\[.*\]:\s+UNREACHABLE/\1/g\' | paste -sd ","',
       'UserParameter=beegfs.management.reachable[*],beegfs-ctl --listnodes --reachable --nodetype=management | grep -A1 \'\[ID: $1\]\' | grep -c "Reachable: <yes>"',
       'UserParameter=beegfs.metadata.reachable[*],beegfs-ctl --listnodes --reachable --nodetype=metadata | grep -A1 \'\[ID: $1\]\' | grep -c "Reachable: <yes>"',

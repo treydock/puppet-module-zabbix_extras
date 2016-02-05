@@ -17,7 +17,7 @@ UserParameter=beegfs.client.status,ls /proc/fs/beegfs/*/.status &>/dev/null && e
 # Returns:
 #   Configuration value
 #
-UserParameter=beegfs.config.value[*],awk '/^$1/{ print $$NF }' $2
+UserParameter=beegfs.config.value[*],if [[ -n "$1" ]]; then name="$1" ; else name="tuneNumWorkers" ; fi ; if [[ -n "$2" ]] ; then path="$2" ; else path="/etc/beegfs/beegfs-client.conf" ; fi ; awk "/^$name/{ print \$NF }" $path
 
 # beegfs.list_unreachable
 #
